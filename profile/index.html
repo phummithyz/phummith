@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | phummithyz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="snow-wrapper">
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+    </div>
+
+    <div class="welcome-container">
+        <h1 class="glow-text">Welcome, phummithyz</h1>
+
+        <a href="https://www.instagram.com/phummithyz/" target="_blank" class="ig-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Follow me on Instagram</span>
+        </a>
+
+        <div class="image-gallery">
+            <div class="image-item">
+                <img src="image_0.png" alt="Phummithyz Image 1">
+            </div>
+            <div class="image-item">
+                <img src="image_1.png" alt="Phummithyz Image 2">
+            </div>
+            <div class="image-item">
+                <img src="image_2.png" alt="Phummithyz Image 3">
+            </div>
+        </div>
+    </div>
+
+    <audio id="myAudio" src="music.mp3" loop autoplay></audio>
+
+    <div class="music-player-container">
+        <div class="volume-control">
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+
+        <button id="musicBtn" class="music-control-btn">
+            <div class="disc-logo">
+                <img src="muic.png" alt="Music Logo" class="custom-disc-img">
+            </div>
+            <div class="status-icon">
+                <i class="fas fa-play"></i>
+            </div>
+        </button>
+    </div>
+
+    <script>
+        const audio = document.getElementById('myAudio');
+        const btn = document.getElementById('musicBtn');
+        const statusIcon = document.querySelector('.status-icon i');
+        const volumeSlider = document.getElementById('volumeSlider');
+
+        // ฟังก์ชันสั่งเล่นเพลง
+        function playMusic() {
+            audio.play().then(() => {
+                btn.classList.add('playing');
+                statusIcon.className = 'fas fa-pause';
+            }).catch(error => {
+                console.log("Autoplay blocked. Waiting for user interaction...");
+            });
+        }
+
+        // 1. พยายามเล่นทันทีที่โหลดเสร็จ
+        window.addEventListener('load', playMusic);
+
+        // 2. ดักจับการคลิกครั้งแรกบนหน้าเว็บ เพื่อปลดล็อกเสียง (กรณี Autoplay โดนบล็อก)
+        document.body.addEventListener('click', function () {
+            if (audio.paused) {
+                playMusic();
+            }
+        }, { once: true });
+
+        // ปุ่ม Play/Pause
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (audio.paused) {
+                audio.play();
+                btn.classList.add('playing');
+                statusIcon.className = 'fas fa-pause';
+            } else {
+                audio.pause();
+                btn.classList.remove('playing');
+                statusIcon.className = 'fas fa-play';
+            }
+        });
+
+        // ระบบปรับระดับเสียง
+        volumeSlider.addEventListener('input', function () {
+            audio.volume = this.value;
+        });
+
+        // --- ส่วนสุ่มตำแหน่งหิมะ ---
+        const snowflakes = document.querySelectorAll('.snowflake');
+        snowflakes.forEach((snow) => {
+            const randomLeft = Math.random() * 100;
+            const randomDelay = Math.random() * 10;
+            const randomDuration = Math.random() * 5 + 7;
+            const randomSize = Math.random() * 4 + 2; // ปรับขนาดหิมะให้ชัดขึ้น
+
+            snow.style.left = randomLeft + '%';
+            snow.style.animationDelay = randomDelay + 's';
+            snow.style.animationDuration = randomDuration + 's';
+            snow.style.width = randomSize + 'px';
+            snow.style.height = randomSize + 'px';
+            snow.style.opacity = Math.random();
+        });
+    </script>
+
+</body>
+
+</html>
