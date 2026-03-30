@@ -7,16 +7,14 @@
     <title>Welcome To My Bio! | phummithyz</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body>
 
     <div id="overlay">
-        <h1 class="glow-text">phummithyz</h1>
+        <h1 class="glow-text">info , phummithyz</h1>
         <button id="startBtn">Click to Enter</button>
     </div>
 
@@ -29,36 +27,54 @@
     </div>
 
     <div class="welcome-container">
-        <h1 class="glow-text">Welcome To My Bio!, phummithyz</h1>
+        <h1 class="glow-text">phummithyz</h1>
 
-        <a href="https://www.instagram.com/phummithyz/" target="_blank" class="ig-link">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG Logo"
-                class="ig-custom-logo">
-            <span>My Instagram</span>
-        </a>
+        <div class="social-group">
+            <a href="https://www.instagram.com/phummithyz/" target="_blank" class="ig-link">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG Logo"
+                    class="ig-custom-logo">
+                <span>Instagram</span>
+            </a>
 
-        <a href="https://www.tiktok.com/@phummith777" target="_blank" class="ig-link">
-            <img src="tiktok.png" alt="IG Logo" class="ig-custom-logo">
-            <span>My TikTok</span>
-        </a>
+            <a href="https://www.tiktok.com/@phummith777" target="_blank" class="ig-link">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok Logo"
+                    class="ig-custom-logo">
+                <span>TikTok</span>
+            </a>
+        </div>
 
-        <div class="image-gallery">
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="image-item"><img src="image_0.png" alt="Image 1"></div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="image-item"><img src="image_1.png" alt="Image 2"></div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="image-item"><img src="image_2.png" alt="Image 3"></div>
-                    </div>
+        <div class="content-wrapper">
+
+            <div class="highlight-video-container">
+                <h2 class="sub-glow-text">My Highlight</h2>
+                <div class="video-portrait-wrapper">
+                    <iframe src="phmmth.mp4" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
             </div>
+
+            <div class="image-gallery">
+                <h2 class="sub-glow-text">gallerys</h2>
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-item"><img src="image_0.png" alt="Image 1"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-item"><img src="image_1.png" alt="Image 2"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-item"><img src="image_2.png" alt="Image 3"></div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -88,7 +104,6 @@
         const overlay = document.getElementById('overlay');
         const startBtn = document.getElementById('startBtn');
 
-        // ตั้งค่าสไลด์ Swiper
         var swiper = new Swiper(".mySwiper", {
             loop: true,
             grabCursor: true,
@@ -97,7 +112,6 @@
             autoplay: { delay: 4000, disableOnInteraction: false }
         });
 
-        // ฟังก์ชันเริ่มเล่นเพลงและเข้าเว็บ
         startBtn.addEventListener('click', function () {
             audio.play().then(() => {
                 btn.classList.add('playing');
@@ -105,12 +119,10 @@
                 overlay.style.opacity = '0';
                 setTimeout(() => { overlay.style.display = 'none'; }, 800);
             }).catch(err => {
-                console.log("Playback failed", err);
                 overlay.style.display = 'none';
             });
         });
 
-        // ปุ่ม Play/Pause
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
             if (audio.paused) {
@@ -124,10 +136,8 @@
             }
         });
 
-        // ปรับเสียง
         volumeSlider.addEventListener('input', function () { audio.volume = this.value; });
 
-        // ตั้งค่าหิมะแบบสุ่ม
         const snowflakes = document.querySelectorAll('.snowflake');
         snowflakes.forEach((snow) => {
             snow.style.left = Math.random() * 100 + '%';
