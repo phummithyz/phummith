@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome | phummithyz</title>
+    <title>Welcome To My Bio! | phummithyz</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body>
 
-    <div id="overlay"
-        style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); color:#fff; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; transition: 0.8s; backdrop-filter: blur(10px);">
-        <h1 class="glow-text" style="margin-bottom: 20px; font-family: sans-serif;">phummithyz</h1>
-        <button id="startBtn"
-            style="padding: 15px 40px; font-size: 1.2rem; cursor: pointer; background: transparent; border: 2px solid #fff; color: #fff; border-radius: 50px; font-weight: bold; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;">
-            Click to Enter
-        </button>
+    <div id="overlay">
+        <h1 class="glow-text">phummithyz</h1>
+        <button id="startBtn">Click to Enter</button>
     </div>
 
     <div class="snow-wrapper">
@@ -30,14 +30,30 @@
 
     <div class="welcome-container">
         <h1 class="glow-text">Welcome To My Bio!, phummithyz</h1>
+
         <a href="https://www.instagram.com/phummithyz/" target="_blank" class="ig-link">
-            <i class="fa-brands fa-instagram"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG Logo"
+                class="ig-custom-logo">
             <span>My Instagram</span>
         </a>
+
         <div class="image-gallery">
-            <div class="image-item"><img src="image_0.png" alt="Image 1"></div>
-            <div class="image-item"><img src="image_1.png" alt="Image 2"></div>
-            <div class="image-item"><img src="image_2.png" alt="Image 3"></div>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="image-item"><img src="image_0.png" alt="Image 1"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image-item"><img src="image_1.png" alt="Image 2"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image-item"><img src="image_2.png" alt="Image 3"></div>
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
 
@@ -57,8 +73,9 @@
         </button>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
-        // ประกาศตัวแปรทั้งหมดไว้ที่เดียว
         const audio = document.getElementById('myAudio');
         const btn = document.getElementById('musicBtn');
         const statusIcon = document.querySelector('.status-icon i');
@@ -66,23 +83,29 @@
         const overlay = document.getElementById('overlay');
         const startBtn = document.getElementById('startBtn');
 
-        // ฟังก์ชันเล่นเพลง
-        function playMusic() {
+        // ตั้งค่าสไลด์ Swiper
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            grabCursor: true,
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            autoplay: { delay: 4000, disableOnInteraction: false }
+        });
+
+        // ฟังก์ชันเริ่มเล่นเพลงและเข้าเว็บ
+        startBtn.addEventListener('click', function () {
             audio.play().then(() => {
                 btn.classList.add('playing');
                 statusIcon.className = 'fas fa-pause';
                 overlay.style.opacity = '0';
                 setTimeout(() => { overlay.style.display = 'none'; }, 800);
             }).catch(err => {
-                console.log("Playback failed:", err);
+                console.log("Playback failed", err);
                 overlay.style.display = 'none';
             });
-        }
+        });
 
-        // กดปุ่ม Start
-        startBtn.addEventListener('click', playMusic);
-
-        // ปุ่ม Play/Pause ในเครื่องเล่น
+        // ปุ่ม Play/Pause
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
             if (audio.paused) {
@@ -96,12 +119,10 @@
             }
         });
 
-        // ปรับระดับเสียง
-        volumeSlider.addEventListener('input', function () {
-            audio.volume = this.value;
-        });
+        // ปรับเสียง
+        volumeSlider.addEventListener('input', function () { audio.volume = this.value; });
 
-        // ตั้งค่าหิมะ
+        // ตั้งค่าหิมะแบบสุ่ม
         const snowflakes = document.querySelectorAll('.snowflake');
         snowflakes.forEach((snow) => {
             snow.style.left = Math.random() * 100 + '%';

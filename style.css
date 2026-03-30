@@ -7,162 +7,122 @@
 
 body {
     background-color: #000;
-    /* พื้นหลังดำสนิท */
     min-height: 100vh;
-    /* เปลี่ยนจาก height เป็น min-height เพื่อให้สกอร์ได้ถ้าเนื้อหายาว */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     color: #fff;
-    padding: 40px 20px;
-    /* เพิ่ม padding รอบๆ */
+    overflow-x: hidden;
 }
 
-/* แอนิเมชันตอนเข้าเว็บ (Fade In + Slide Up) */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* หน้าจอเริ่มต้น */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: 0.8s;
+    backdrop-filter: blur(10px);
 }
 
-/* แอนิเมชันเรืองแสงวูบวาบ */
+#startBtn {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid #ffea00;
+    color: #ffea00;
+    border-radius: 50px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+#startBtn:hover {
+    background: #ffea00;
+    color: #000;
+    box-shadow: 0 0 20px #ffea00;
+}
+
+/* แอนิเมชันเรืองแสง */
 @keyframes glowPulse {
 
     0%,
     100% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffea00;
+        text-shadow: 0 0 10px #fff, 0 0 20px #ffea00;
     }
 
     50% {
-        text-shadow: 0 0 20px #fff, 0 0 40px #ffea00, 0 0 60px #ffea00;
+        text-shadow: 0 0 20px #fff, 0 0 40px #ffea00;
     }
+}
+
+.glow-text {
+    font-size: 3rem;
+    animation: glowPulse 3s infinite ease-in-out;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .welcome-container {
     text-align: center;
     z-index: 10;
-    /* ให้ลอยอยู่เหนือดาว */
-    max-width: 800px;
-    /* จำกัดความกว้างเนื้อหา */
     width: 100%;
+    max-width: 500px;
 }
 
-.glow-text {
-    font-size: 3.5rem;
-    /* ปรับขนาดเล็กน้อย */
-    color: #fff;
-    margin-bottom: 20px;
-    animation: fadeInUp 1.2s ease-out forwards,
-        glowPulse 3s infinite ease-in-out;
-}
-
-@media (max-width: 600px) {
-    .glow-text {
-        font-size: 2.5rem;
-    }
-}
-
-/* ตกแต่งลิงก์ IG */
+/* ปุ่ม IG และโลโก้ */
 .ig-link {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
     color: #ffea00;
-    /* สีเหลือง */
-    font-size: 1.1rem;
-    padding: 10px 20px;
+    padding: 10px 25px;
     border: 2px solid #ffea00;
     border-radius: 50px;
-    transition: all 0.3s ease;
-    opacity: 0;
-    /* ซ่อนไว้ก่อนเพื่อทำแอนิเมชัน */
-    animation: fadeInUp 1s ease-out 1s forwards;
-    /* โผล่มาทีหลัง h1 */
-    margin-bottom: 40px;
-    /* เว้นระยะห่างด้านล่างสำหรับรูปภาพ */
+    margin: 20px 0;
+    transition: 0.3s;
 }
 
-.ig-link i {
-    font-size: 1.6rem;
-    margin-right: 12px;
+.ig-custom-logo {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    /* ระยะห่างรูปกับตัวอักษร */
 }
 
-.ig-link:hover {
-    background-color: #ffea00;
-    color: #000;
-    box-shadow: 0 0 20px #ffea00;
-    transform: scale(1.05);
-}
-
-/* --- ส่วนของแกลเลอรีรูปภาพที่เพิ่มใหม่ --- */
+/* สไลด์รูปภาพ */
 .image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    /* ให้รูปขึ้นบรรทัดใหม่ได้ถ้าหน้าจอแคบ */
-    justify-content: center;
-    gap: 20px;
-    /* ระยะห่างระหว่างรูป */
-    opacity: 0;
-    animation: fadeInUp 1s ease-out 1.5s forwards;
-    /* โผล่มาทีหลังปุ่ม IG */
+    width: 100%;
+    margin-top: 20px;
 }
 
-.image-item {
-    flex: 1 1 calc(33.333% - 20px);
-    /* แสดง 3 รูปต่อแถว */
-    max-width: calc(33.333% - 20px);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(255, 234, 0, 0.2);
-    /* เพิ่มเงาสีเหลืองจางๆ */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.swiper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* บังคับสี่เหลี่ยมจัตุรัส */
+    border-radius: 15px;
+    border: 2px solid #ffea00;
+    box-shadow: 0 0 20px rgba(255, 234, 0, 0.3);
 }
 
-.image-item:hover {
-    transform: translateY(-5px);
-    /* ลอยขึ้นเมื่อ hover */
-    box-shadow: 0 8px 25px rgba(255, 234, 0, 0.4);
-}
-
+.image-item,
 .image-item img {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover;
-    /* ให้รูปเต็มกรอบโดยไม่เสียสัดส่วน */
-    display: block;
+    /* รูปเต็มกรอบ No White Borders */
 }
 
-/* ปรับรูปแบบสำหรับหน้าจอโทรศัพท์ */
-@media (max-width: 600px) {
-    .image-item {
-        flex: 1 1 100%;
-        /* แสดงรูปเต็มความกว้าง 1 รูปต่อแถว */
-        max-width: 100%;
-    }
-}
-
-/* แถม: เอฟเฟกต์ดาวพื้นหลังเล็กน้อย */
-.stars {
-    position: fixed;
-    /* เปลี่ยนเป็น fixed เพื่อให้อยู่กับที่ */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, #111 0%, #000 100%);
-    z-index: 1;
-}
-
-/* --- ส่วนของหิมะ (Snowflake Styles) --- */
-
-/* คอนเทนเนอร์หลักสำหรับหิมะ */
+/* หิมะ */
 .snow-wrapper {
     position: fixed;
     top: 0;
@@ -170,412 +130,63 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1;
-    /* ให้อยู่ใต้เนื้อหาหลัก */
     pointer-events: none;
-    /* เพื่อไม่ให้รบกวนการคลิกปุ่ม */
-    background: #000;
-    /* พื้นหลังดำสนิท */
 }
 
-/* ตั้งค่าพื้นฐานสำหรับแต่ละอนุภาค */
 .snowflake {
     position: absolute;
-    width: 6px;
-    height: 6px;
     background: #fff;
-    /* สีขาว */
     border-radius: 50%;
-    opacity: 0.8;
-    filter: blur(1px);
-    /* เพิ่มความเบลอเล็กน้อย */
+    animation: fall linear infinite;
 }
 
-/* แอนิเมชันทำให้หิมะตกลงมา (Fall) */
 @keyframes fall {
     0% {
         top: -10vh;
-        /* เริ่มจากด้านบนนอกหน้าจอ */
         transform: translateX(0);
     }
 
     100% {
         top: 110vh;
-        /* ตกลงไปด้านล่างนอกหน้าจอ */
         transform: translateX(20px);
-        /* ให้เฉียงเล็กน้อย */
     }
 }
 
-/* แอนิเมชันทำให้หิมะส่ายไปมา (Sway) */
-@keyframes sway {
-
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(30px);
-    }
-}
-
-/* ตั้งค่าให้หิมะแต่ละอันมีคุณสมบัติที่ต่างกัน (SASS หรือ pre-processor จะช่วยให้ง่ายขึ้นมาก แต่เราจะใช้วิธีดิบๆ แบบ CSS) */
-/* เราจะใช้ :nth-child เพื่อสุ่มตำแหน่ง เวลา และขนาด */
-.snowflake:nth-child(1) {
-    left: 10%;
-    animation: fall 10s infinite linear, sway 5s infinite ease-in-out;
-}
-
-.snowflake:nth-child(2) {
-    left: 20%;
-    animation: fall 12s 2s infinite linear, sway 6s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(3) {
-    left: 30%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(4) {
-    left: 40%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(5) {
-    left: 50%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(6) {
-    left: 60%;
-    animation: fall 13s 3s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(7) {
-    left: 70%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(8) {
-    left: 80%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(9) {
-    left: 90%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(10) {
-    left: 15%;
-    animation: fall 12s 2s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-/* ... เพิ่มอีก 40 อัน (ก๊อปปี้ส่วนนี้ไปวางได้เลยครับ) ... */
-.snowflake:nth-child(11) {
-    left: 5%;
-    animation: fall 10s infinite linear, sway 5s infinite ease-in-out;
-}
-
-.snowflake:nth-child(12) {
-    left: 12%;
-    animation: fall 12s 2s infinite linear, sway 6s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(13) {
-    left: 22%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(14) {
-    left: 32%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(15) {
-    left: 42%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(16) {
-    left: 52%;
-    animation: fall 13s 3s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(17) {
-    left: 62%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(18) {
-    left: 72%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(19) {
-    left: 82%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(20) {
-    left: 92%;
-    animation: fall 12s 2s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-/* ... */
-.snowflake:nth-child(21) {
-    left: 3%;
-    animation: fall 10s infinite linear, sway 5s infinite ease-in-out;
-}
-
-.snowflake:nth-child(22) {
-    left: 8%;
-    animation: fall 12s 2s infinite linear, sway 6s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(23) {
-    left: 18%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(24) {
-    left: 28%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(25) {
-    left: 38%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(26) {
-    left: 48%;
-    animation: fall 13s 3s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(27) {
-    left: 58%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(28) {
-    left: 68%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(29) {
-    left: 78%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(30) {
-    left: 88%;
-    animation: fall 12s 2s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-/* ... */
-.snowflake:nth-child(31) {
-    left: 6%;
-    animation: fall 10s infinite linear, sway 5s infinite ease-in-out;
-}
-
-.snowflake:nth-child(32) {
-    left: 16%;
-    animation: fall 12s 2s infinite linear, sway 6s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(33) {
-    left: 26%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(34) {
-    left: 36%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(35) {
-    left: 46%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(36) {
-    left: 56%;
-    animation: fall 13s 3s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(37) {
-    left: 66%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(38) {
-    left: 76%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(39) {
-    left: 86%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(40) {
-    left: 96%;
-    animation: fall 12s 2s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-/* ... */
-.snowflake:nth-child(41) {
-    left: 9%;
-    animation: fall 10s infinite linear, sway 5s infinite ease-in-out;
-}
-
-.snowflake:nth-child(42) {
-    left: 19%;
-    animation: fall 12s 2s infinite linear, sway 6s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(43) {
-    left: 29%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(44) {
-    left: 39%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(45) {
-    left: 49%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(46) {
-    left: 59%;
-    animation: fall 13s 3s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-.snowflake:nth-child(47) {
-    left: 69%;
-    animation: fall 9s infinite linear, sway 4s infinite ease-in-out;
-}
-
-.snowflake:nth-child(48) {
-    left: 79%;
-    animation: fall 11s 1s infinite linear, sway 5s infinite ease-in-out;
-    width: 5px;
-    height: 5px;
-}
-
-.snowflake:nth-child(49) {
-    left: 89%;
-    animation: fall 10s infinite linear, sway 6s infinite ease-in-out;
-}
-
-.snowflake:nth-child(50) {
-    left: 99%;
-    animation: fall 12s 2s infinite linear, sway 7s infinite ease-in-out;
-    width: 4px;
-    height: 4px;
-}
-
-/* ------------------------------------------- */
-/* ตกแต่งปุ่มควบคุมเพลง */
-/* คอนเทนเนอร์หลัก */
+/* เครื่องเล่นเพลง */
 .music-player-container {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    right: 20px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     z-index: 1000;
 }
 
-/* ปุ่มควบคุมหลัก */
 .music-control-btn {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: #000;
     border: 2px solid #ffea00;
-    color: #ffea00;
     cursor: pointer;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 15px rgba(255, 234, 0, 0.4);
-    transition: all 0.3s ease;
 }
 
-/* โลโก้แผ่นเพลง (Disc) */
 .disc-logo {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    /* ทำให้คอนเทนเนอร์เป็นวงกลม */
     overflow: hidden;
-    /* ซ่อนรูปภาพส่วนที่ล้นออกไป */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* เมื่อเพลงเล่น ให้แผ่นหมุน */
 .music-control-btn.playing .disc-logo {
-    animation: rotateDisc 3s linear infinite;
+    animation: rotate 3s linear infinite;
 }
 
-@keyframes rotateDisc {
+@keyframes rotate {
     from {
-        transform: rotate(0deg);
+        transform: rotate(0);
     }
 
     to {
@@ -583,54 +194,43 @@ body {
     }
 }
 
-/* ไอคอน Play/Pause เล็กๆ ตรงมุมปุ่ม */
-.status-icon {
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    background: #ffea00;
-    color: #000;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    font-size: 0.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #000;
-}
-
-/* ส่วนปรับระดับเสียง (Volume Slider) */
-.volume-control {
-    width: 0;
-    overflow: hidden;
-    transition: width 0.4s ease, opacity 0.3s ease;
-    opacity: 0;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 234, 0, 0.3);
-}
-
-/* เมื่อเอาเมาส์ชี้ที่คอนเทนเนอร์ ให้แถบเสียงโผล่มา */
-.music-player-container:hover .volume-control {
-    width: 120px;
-    opacity: 1;
-}
-
-/* ปรับแต่งหน้าตาตัวเลื่อน (Slider) */
-#volumeSlider {
-    cursor: pointer;
-    accent-color: #ffea00;
-    /* เปลี่ยนสีตัวเลื่อนเป็นสีเหลือง */
-    width: 100%;
-}
-
 .custom-disc-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* ให้รูปภาพเต็มกรอบโดยไม่เสียสัดส่วน */
+}
+
+.status-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #ffea00;
+    color: #000;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    /* ทำให้ตัวรูปภาพเป็นวงกลมด้วย */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.volume-control {
+    width: 0;
+    opacity: 0;
+    transition: 0.4s;
+    overflow: hidden;
+}
+
+.music-player-container:hover .volume-control {
+    width: 100px;
+    opacity: 1;
+}
+
+#volumeSlider {
+    accent-color: #ffea00;
+    width: 100%;
+}
+
+.visitor-counter {
+    margin-bottom: 10px;
 }
