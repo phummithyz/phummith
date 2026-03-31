@@ -39,8 +39,8 @@ body {
     font-size: 1.2rem;
     cursor: pointer;
     background: transparent;
-    border: 2px solid #ffea00;
-    color: #ffea00;
+    border: 2px solid #ff00aa;
+    color: #fcfcfc;
     border-radius: 50px;
     font-weight: bold;
     margin-top: 20px;
@@ -48,9 +48,9 @@ body {
 }
 
 #startBtn:hover {
-    background: #ffea00;
+    background: #f1f1ed;
     color: #000;
-    box-shadow: 0 0 20px #ffea00;
+    box-shadow: 0 0 20px #ffffff;
 }
 
 @keyframes glowPulse {
@@ -97,9 +97,9 @@ body {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    color: #ffea00;
+    color: #eee5ee;
     padding: 10px 25px;
-    border: 2px solid #ffea00;
+    border: 2px solid #e0e0e0;
     border-radius: 50px;
     margin: 10px;
     transition: 0.3s;
@@ -126,7 +126,7 @@ body {
     position: relative;
     overflow: hidden;
     border-radius: 12px;
-    border: 2px solid #ffea00;
+    border: 2px solid #ffffff;
     box-shadow: 0 0 20px rgba(255, 234, 0, 0.3);
     background: #000;
 }
@@ -155,7 +155,7 @@ body {
     aspect-ratio: 1 / 1.1;
     /* ปรับระดับให้ใกล้เคียงวิดีโอ */
     border-radius: 15px;
-    border: 2px solid #ffea00;
+    border: 2px solid #fffef7;
     box-shadow: 0 0 20px rgba(255, 234, 0, 0.3);
     overflow: hidden;
 }
@@ -168,9 +168,9 @@ body {
 
 .sub-glow-text {
     font-size: 1.5rem;
-    color: #ffea00;
+    color: #ffffff;
     margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(255, 234, 0, 0.5);
+    text-shadow: 0 0 10px rgba(173, 0, 247, 0.5);
 }
 
 /* --- 6. หิมะและเครื่องเล่นเพลง --- */
